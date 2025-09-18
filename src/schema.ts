@@ -1,11 +1,11 @@
-import { makeGrafastSchema } from "grafast";
 import { pgRegistry } from "./registry.ts";
+import { typedMakeGrafastSchema } from "./schema-generated.ts";
 
 const {
   pgResources: { users, posts },
 } = pgRegistry;
 
-export const schema = makeGrafastSchema({
+export const schema = typedMakeGrafastSchema({
   typeDefs: /* GraphQL */ `
     scalar Datetime
     type Query {

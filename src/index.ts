@@ -6,35 +6,42 @@ const withPgClient = createWithPgClient({
   connectionString: "postgres:///dataplanpg-example",
 });
 
-const result = await grafast({
-  schema,
-  source: /* GraphQL */ `
-    {
-      users {
-        id
-        username
-        createdAt
+async function main() {
+  const result = await grafast({
+    schema,
+    source: /* GraphQL */ `
+      {
+        users {
+          id
+          username
+          createdAt
+          posts {
+            id
+            body
+          }
+        }
         posts {
           id
           body
+          createdAt
+          author {
+            id
+            username
+          }
         }
       }
-      posts {
-        id
-        body
-        createdAt
-        author {
-          id
-          username
-        }
-      }
-    }
-  `,
-  contextValue: {
-    withPgClient,
-    pgSettings: {},
-  },
-});
+    `,
+    contextValue: {
+      withPgClient,
+      pgSettings: {},
+    },
+  });
 
-console.log(JSON.stringify(result, null, 2));
-await withPgClient.release?.();
+  console.log(JSON.stringify(result, null, 2));
+  await withPgClient.release?.();
+}
+
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});

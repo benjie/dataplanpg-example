@@ -5,7 +5,6 @@ import {
   PgExecutor,
   recordCodec,
   TYPES,
-  type PgResourceOptions,
 } from "@dataplan/pg";
 import { sql } from "pg-sql2";
 

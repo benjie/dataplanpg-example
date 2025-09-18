@@ -2,7 +2,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "node --experimental-strip-types src/index.ts",
+    "start": "yarn graphql-codegen && node --experimental-strip-types src/index.ts",
     "resetdb": "(dropdb dataplanpg-example || true) && createdb dataplanpg-example && psql -X1v ON_ERROR_STOP=1 -f schema.sql dataplanpg-example"
   },
   "dependencies": {
@@ -12,5 +12,9 @@
     "pg": "^8.16.3",
     "prettier": "^3.6.2",
     "typescript": "^5.9.2"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "^6.0.0",
+    "graphql-codegen-grafast": "^0.0.1-beta.1"
   }
 }
