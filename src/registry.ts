@@ -1,5 +1,6 @@
 import { context, object } from "grafast";
 import {
+  makePgResourceOptions,
   makeRegistryBuilder,
   PgExecutor,
   recordCodec,
@@ -61,7 +62,7 @@ const postsCodec = recordCodec({
   },
 });
 
-const usersResourceOptions = {
+const usersResourceOptions = makePgResourceOptions({
   executor,
   name: "users",
   from: sql`users`,
@@ -75,9 +76,9 @@ const usersResourceOptions = {
       attributes: ["username"],
     },
   ],
-} as const satisfies PgResourceOptions;
+});
 
-const postsResourceOptions = {
+const postsResourceOptions = makePgResourceOptions({
   executor,
   name: "posts",
   from: sql`posts`,
@@ -88,7 +89,7 @@ const postsResourceOptions = {
       attributes: ["id"],
     },
   ],
-} as const satisfies PgResourceOptions;
+});
 
 export const pgRegistry = makeRegistryBuilder()
   .addExecutor(executor)
