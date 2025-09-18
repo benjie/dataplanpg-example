@@ -66,7 +66,7 @@ const postsCodec = recordCodec({
   },
 });
 
-const usersResourceOptions: PgResourceOptions = {
+const usersResourceOptions = {
   executor,
   name: "users",
   from: sql`users`,
@@ -80,8 +80,8 @@ const usersResourceOptions: PgResourceOptions = {
       attributes: ["username"],
     },
   ],
-};
-const postsResourceOptions: PgResourceOptions = {
+} satisfies PgResourceOptions;
+const postsResourceOptions = {
   executor,
   name: "posts",
   from: sql`posts`,
@@ -92,7 +92,7 @@ const postsResourceOptions: PgResourceOptions = {
       attributes: ["id"],
     },
   ],
-};
+} satisfies PgResourceOptions;
 const pgRegistry = makeRegistryBuilder()
   .addExecutor(executor)
   .addCodec(usersCodec)
@@ -103,14 +103,12 @@ const pgRegistry = makeRegistryBuilder()
     isReferencee: false,
     isUnique: true,
     localAttributes: ["author_id"],
-    // @ts-ignore
     remoteAttributes: ["id"],
   })
   .addRelation(usersCodec, "posts", postsResourceOptions, {
     isReferencee: true,
     isUnique: false,
     localAttributes: ["id"],
-    // @ts-ignore
     remoteAttributes: ["author_id"],
   })
   .build();
