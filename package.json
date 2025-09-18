@@ -1,0 +1,16 @@
+{
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node --experimental-strip-types src/index.ts",
+    "resetdb": "(dropdb dataplanpg-example || true) && createdb dataplanpg-example && psql -X1v ON_ERROR_STOP=1 -f schema.sql dataplanpg-example"
+  },
+  "dependencies": {
+    "@benjie/tsconfig": "^22.0.3",
+    "@dataplan/pg": "^0.0.1-beta.37",
+    "grafast": "^0.1.1-beta.26",
+    "pg": "^8.16.3",
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.2"
+  }
+}
