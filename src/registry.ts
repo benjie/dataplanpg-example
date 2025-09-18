@@ -75,7 +75,7 @@ const usersResourceOptions = {
       attributes: ["username"],
     },
   ],
-} satisfies PgResourceOptions;
+} as const satisfies PgResourceOptions;
 
 const postsResourceOptions = {
   executor,
@@ -88,7 +88,7 @@ const postsResourceOptions = {
       attributes: ["id"],
     },
   ],
-} satisfies PgResourceOptions;
+} as const satisfies PgResourceOptions;
 
 export const pgRegistry = makeRegistryBuilder()
   .addExecutor(executor)
